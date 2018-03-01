@@ -1,10 +1,15 @@
 package um.lugq.socialsdk;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
+import java.util.Map;
 
 /**
  * Description：
@@ -39,5 +44,67 @@ public class SocialSdkManager {
         UMShareAPI.get(app);
     }
 
+    /**
+     * 微信登录
+     */
+    public static void loginWX(Activity context) {
+        UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.WEIXIN, authListener);
+    }
 
+    /**
+     * 微博登录
+     */
+    public static void loginSina(Activity context) {
+        UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.SINA, authListener);
+    }
+
+    /**
+     * QQ登录
+     */
+    public static void loginQQ(Activity context) {
+        UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.QQ, authListener);
+    }
+
+    private static UMAuthListener authListener = new UMAuthListener() {
+        /**
+         * @desc 授权开始的回调
+         * @param platform 平台名称
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @desc 授权成功的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param data 用户资料返回
+         */
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
+            //Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权失败的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            //Toast.makeText(mContext, "失败：" + t.getMessage(),                                  Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @desc 授权取消的回调
+         * @param platform 平台名称
+         * @param action 行为序号，开发者用不上
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            //Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
+        }
+    };
 }
