@@ -2,6 +2,7 @@ package um.lugq.socialsdk;
 
 import android.app.Activity;
 import android.app.Application;
+import android.util.Log;
 
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -18,18 +19,20 @@ import java.util.Map;
  */
 
 public class SocialSdkManager {
+    private static final String TAG = SocialSdkManager.class.getSimpleName();
 
     /**
      * 社会化组件初始化
-     * @param app Application
-     * @param SinaWeibo_ID 新浪微博的ID
-     * @param SinaWeibo_KEY 新浪微博KEY
+     *
+     * @param app                   Application
+     * @param SinaWeibo_ID          新浪微博的ID
+     * @param SinaWeibo_KEY         新浪微博KEY
      * @param SinaWeibo_CallBackUrl 新浪微博回调地址
-     * @param WX_ID 微信ID
-     * @param WX_KEY 微信KEY
-     * @param QQZone_ID QQ ID
-     * @param QQZone_KEY QQ KEY
-     * @param DEBUG 默认为false
+     * @param WX_ID                 微信ID
+     * @param WX_KEY                微信KEY
+     * @param QQZone_ID             QQ ID
+     * @param QQZone_KEY            QQ KEY
+     * @param DEBUG                 默认为false
      */
     public static void init(Application app,
                             String SinaWeibo_ID, String SinaWeibo_KEY, String SinaWeibo_CallBackUrl,
@@ -47,14 +50,18 @@ public class SocialSdkManager {
     /**
      * 微信登录
      */
-    public static void loginWX(Activity context) {
+    public static void loginWX(Activity context, SocialListener socialListener) {
+        mSocialListener = socialListener;
         UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.WEIXIN, authListener);
     }
+
+    private static SocialListener mSocialListener;
 
     /**
      * 微博登录
      */
-    public static void loginSina(Activity context) {
+    public static void loginSina(Activity context, SocialListener socialListener) {
+        mSocialListener = socialListener;
         UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.SINA, authListener);
     }
 
@@ -84,6 +91,23 @@ public class SocialSdkManager {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             //Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
+            if (data != null) {
+                String json = GsonUtil.GsonString(data);
+                try {
+                    if (json != null) {
+                        BackDataEntity entity = GsonUtil.GsonToBean(json, BackDataEntity.class);
+                        if (entity != null) {
+                            SocialUser user = SocialUserJsonMapper.newInstance().transform(entity);
+                            if (mSocialListener != null) {
+                                mSocialListener.onSuccess(user);
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Log.i(TAG, json);
+            }
         }
 
         /**
