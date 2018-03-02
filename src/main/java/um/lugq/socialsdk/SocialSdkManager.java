@@ -68,7 +68,8 @@ public class SocialSdkManager {
     /**
      * QQ登录
      */
-    public static void loginQQ(Activity context) {
+    public static void loginQQ(Activity context, SocialListener socialListener) {
+        mSocialListener = socialListener;
         UMShareAPI.get(context).getPlatformInfo(context, SHARE_MEDIA.QQ, authListener);
     }
 
