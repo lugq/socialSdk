@@ -8,6 +8,24 @@ package um.lugq.socialsdk;
 
 public class SocialUser {
     private String userName;
+    private String openid;
+    private String uid;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public String getUserName() {
         return userName;

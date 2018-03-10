@@ -100,7 +100,7 @@ public class SocialSdkManager {
                         if (entity != null) {
                             SocialUser user = SocialUserJsonMapper.newInstance().transform(entity);
                             if (mSocialListener != null) {
-                                mSocialListener.onSuccess(user);
+                                mSocialListener.onSuccess(user, platform);
                             }
                         }
                     }

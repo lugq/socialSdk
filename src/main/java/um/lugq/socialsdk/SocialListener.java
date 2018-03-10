@@ -1,5 +1,7 @@
 package um.lugq.socialsdk;
 
+import com.umeng.socialize.bean.SHARE_MEDIA;
+
 /**
  * Description：
  * Creator: Created by peter.
@@ -8,7 +10,7 @@ package um.lugq.socialsdk;
 
 public interface SocialListener {
 
-    void onSuccess(SocialUser user);
+    void onSuccess(SocialUser user, SHARE_MEDIA platform);
 
     void onFail(String error);
 

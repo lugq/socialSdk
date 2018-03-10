@@ -24,6 +24,8 @@ public class SocialUserJsonMapper {
         if (data != null) {
             user = new SocialUser();
             user.setUserName(data.getScreen_name());
+            user.setOpenid(data.getOpenid());
+            user.setUid(data.getUid());
         }
         return user;
     }
