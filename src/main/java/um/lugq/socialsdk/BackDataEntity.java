@@ -19,6 +19,33 @@ public class BackDataEntity {
     private String access_token;
     private String uid;
     private String name;
+    private String iconurl;
+    private String avatar_hd;
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAvatar_hd() {
+        return avatar_hd;
+    }
+
+    public void setAvatar_hd(String avatar_hd) {
+        this.avatar_hd = avatar_hd;
+    }
+
+    public String getIconurl() {
+        return iconurl;
+    }
+
+    public void setIconurl(String iconurl) {
+        this.iconurl = iconurl;
+    }
 
     public String getUnionid() {
         return unionid;

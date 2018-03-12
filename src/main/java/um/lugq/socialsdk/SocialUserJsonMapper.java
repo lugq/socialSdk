@@ -26,6 +26,9 @@ public class SocialUserJsonMapper {
             user.setUserName(data.getScreen_name());
             user.setOpenid(data.getOpenid());
             user.setUid(data.getUid());
+            user.setIconurl(data.getIconurl());
+            user.setGender(data.getGender());
+            user.setAvatar_hd(data.getAvatar_hd());
         }
         return user;
     }
