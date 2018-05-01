@@ -43,7 +43,7 @@ public class SocialSdkManager {
         PlatformConfig.setWeixin(WX_ID, WX_KEY);
         PlatformConfig.setQQZone(QQZone_ID, QQZone_KEY);
 
-        Config.DEBUG = DEBUG;
+        //Config.DEBUG = DEBUG;
         UMShareAPI.get(app);
     }
 
