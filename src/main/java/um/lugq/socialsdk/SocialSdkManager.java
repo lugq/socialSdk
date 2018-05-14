@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.util.Log;
 
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMAuthListener;
@@ -25,6 +26,7 @@ public class SocialSdkManager {
      * 社会化组件初始化
      *
      * @param app                   Application
+     * @param UMkey                 友盟KEY
      * @param SinaWeibo_ID          新浪微博的ID
      * @param SinaWeibo_KEY         新浪微博KEY
      * @param SinaWeibo_CallBackUrl 新浪微博回调地址
@@ -35,16 +37,20 @@ public class SocialSdkManager {
      * @param DEBUG                 默认为false
      */
     public static void init(Application app,
+                            String UMkey,
                             String SinaWeibo_ID, String SinaWeibo_KEY, String SinaWeibo_CallBackUrl,
                             String WX_ID, String WX_KEY,
                             String QQZone_ID, String QQZone_KEY,
                             boolean DEBUG) {
+
         PlatformConfig.setSinaWeibo(SinaWeibo_ID, SinaWeibo_KEY, SinaWeibo_CallBackUrl);
         PlatformConfig.setWeixin(WX_ID, WX_KEY);
         PlatformConfig.setQQZone(QQZone_ID, QQZone_KEY);
 
         Config.DEBUG = DEBUG;
         UMShareAPI.get(app);
+
+        UMConfigure.init(app, UMkey, "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
     }
 
     /**
@@ -92,6 +98,7 @@ public class SocialSdkManager {
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             //Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "onComplete---");
             if (data != null) {
                 String json = GsonUtil.GsonString(data);
                 try {
@@ -120,6 +127,7 @@ public class SocialSdkManager {
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
             //Toast.makeText(mContext, "失败：" + t.getMessage(),                                  Toast.LENGTH_LONG).show();
+            Log.i(TAG, "失败:" + t.getMessage());
         }
 
         /**
@@ -129,6 +137,7 @@ public class SocialSdkManager {
          */
         @Override
         public void onCancel(SHARE_MEDIA platform, int action) {
+            Log.i(TAG, "onCancel");
             //Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
         }
     };

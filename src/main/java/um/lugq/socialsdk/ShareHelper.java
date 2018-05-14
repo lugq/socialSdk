@@ -12,7 +12,7 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 /**
- * Description：
+ * Description：利用友盟的分享面板
  * Creator: Created by peter.
  * Date: 2017/12/18.
  */
