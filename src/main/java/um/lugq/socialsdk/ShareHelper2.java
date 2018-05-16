@@ -22,7 +22,7 @@ public class ShareHelper2 {
      * @param title 标题
      * @param des 描述
      */
-    public static void shareQQ(Activity context, SHARE_MEDIA platform,  String conver, String target, String title, String des) {
+    public static void share(Activity context, SHARE_MEDIA platform, String conver, String target, String title, String des) {
 
         UMWeb umWeb = buildShareUmWeb(context, conver, target, title, des);
 
